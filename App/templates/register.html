@@ -1,27 +1,107 @@
 {% extends 'layout.html' %}
 {% block content %}
+<style>
+    /* Animated gradient background */
+    body {
+        margin: 0;
+        padding: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+    }
+
+    @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 25px;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+
+    /* Form styling */
+    form {
+        background-color: rgba(255, 255, 255, 0.95);
+        padding: 30px;
+        max-width: 450px;
+        margin: 50px auto;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #2c3e50;
+    }
+
+    .input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #bdc3c7;
+    }
+
+    .btn {
+        background-color: #1abc9c;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #16a085;
+    }
+
+    /* Flash messages styling */
+    .flashes.danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 8px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+</style>
+
 <h1>Register as Student</h1>
 <form method="post">
-	{{ form.hidden_tag() }}
-	<div>
-		<label>Full name</label>
-		{{ form.full_name(class_='input') }}
-		{% for e in form.full_name.errors %}<div class="flashes danger">{{ e }}</div>{% endfor %}
-	</div>
-	<div>
-		<label>Email</label>
-		{{ form.email(class_='input') }}
-		{% for e in form.email.errors %}<div class="flashes danger">{{ e }}</div>{% endfor %}
-	</div>
-	<div>
-		<label>Password</label>
-		{{ form.password(class_='input') }}
-		{% for e in form.password.errors %}<div class="flashes danger">{{ e }}</div>{% endfor %}
-	</div>
-	<div>
-		{{ form.submit(class_='btn') }}
-	</div>
+    {{ form.hidden_tag() }}
+    <div>
+        <label>Full name</label>
+        {{ form.full_name(class_='input') }}
+        {% for e in form.full_name.errors %}
+            <div class="flashes danger">{{ e }}</div>
+        {% endfor %}
+    </div>
+    <div>
+        <label>Email</label>
+        {{ form.email(class_='input') }}
+        {% for e in form.email.errors %}
+            <div class="flashes danger">{{ e }}</div>
+        {% endfor %}
+    </div>
+    <div>
+        <label>Password</label>
+        {{ form.password(class_='input') }}
+        {% for e in form.password.errors %}
+            <div class="flashes danger">{{ e }}</div>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.submit(class_='btn') }}
+    </div>
 </form>
 {% endblock %}
-
-

@@ -1,11 +1,103 @@
 {% extends 'layout.html' %}
 {% block content %}
+<style>
+    body {
+        background: linear-gradient(135deg, #74ebd5, #acb6e5);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .card {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .card h3 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        color: #34495e;
+    }
+
+    .metric {
+        font-size: 28px;
+        font-weight: bold;
+        color: #1abc9c;
+    }
+
+    @media (max-width: 600px) {
+        .grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
 <h1>Dashboard</h1>
 <div class="grid">
-	<div class="card"><h3>Total books</h3><div class="metric">{{ stats.total_books }}</div></div>
-	<div class="card"><h3>Total copies</h3><div class="metric">{{ stats.total_copies }}</div></div>
-	<div class="card"><h3>Available copies</h3><div class="metric">{{ stats.available_copies }}</div></div>
-	<div class="card"><h3>Issued copies</h3><div class="metric">{{ stats.issued_copies }}</div></div>
-	<div class="card"><h3>Overdue copies</h3><div class="metric">{{ stats.overdue_copies }}</div></div>
+    <div class="card">
+        <h3>Total books</h3>
+        <div class="metric" data-target="{{ stats.total_books }}">0</div>
+    </div>
+    <div class="card">
+        <h3>Total copies</h3>
+        <div class="metric" data-target="{{ stats.total_copies }}">0</div>
+    </div>
+    <div class="card">
+        <h3>Available copies</h3>
+        <div class="metric" data-target="{{ stats.available_copies }}">0</div>
+    </div>
+    <div class="card">
+        <h3>Issued copies</h3>
+        <div class="metric" data-target="{{ stats.issued_copies }}">0</div>
+    </div>
+    <div class="card">
+        <h3>Overdue copies</h3>
+        <div class="metric" data-target="{{ stats.overdue_copies }}">0</div>
+    </div>
 </div>
+
+<script>
+    // Animate metrics count up
+    const counters = document.querySelectorAll('.metric');
+
+    counters.forEach(counter => {
+        const updateCount = () => {
+            const target = +counter.getAttribute('data-target');
+            const count = +counter.innerText;
+            const increment = target / 100; // adjust speed
+
+            if(count < target) {
+                counter.innerText = Math.ceil(count + increment);
+                setTimeout(updateCount, 20); // update every 20ms
+            } else {
+                counter.innerText = target;
+            }
+        };
+        updateCount();
+    });
+</script>
 {% endblock %}

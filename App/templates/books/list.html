@@ -1,38 +1,158 @@
 {% extends 'layout.html' %}
 {% block content %}
+<style>
+    /* Animated gradient background */
+    body {
+        margin: 0;
+        padding: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+    }
+
+    @keyframes gradientBG {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+        text-align: center;
+        color: #ffffff;
+        margin-bottom: 20px;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .toolbar {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .toolbar .input {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #bdc3c7;
+        width: 250px;
+    }
+
+    .toolbar .btn {
+        background-color: #1abc9c;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .toolbar .btn:hover {
+        background-color: #16a085;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: rgba(255,255,255,0.95);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .table th, .table td {
+        padding: 12px 15px;
+        text-align: left;
+    }
+
+    .table th {
+        background-color: #34495e;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background-color: #ecf0f1;
+    }
+
+    .table tbody tr:hover {
+        background-color: #d1f0e0;
+        transform: scale(1.01);
+        transition: 0.2s;
+    }
+
+    .table a {
+        color: #1abc9c;
+        text-decoration: none;
+        margin-right: 10px;
+    }
+
+    .table a:hover {
+        text-decoration: underline;
+    }
+
+    .link {
+        background: none;
+        border: none;
+        color: #e74c3c;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .link:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .toolbar {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .toolbar .input {
+            width: 100%;
+        }
+    }
+</style>
+
 <h1>Books</h1>
 <form method="get" class="toolbar">
-	<input type="text" name="q" placeholder="Search title or ISBN" value="{{ q }}" class="input">
-	<button class="btn" type="submit">Search</button>
-	<a href="{{ url_for('books.create_book') }}" class="btn">Add Book</a>
+    <input type="text" name="q" placeholder="Search title or ISBN" value="{{ q }}" class="input">
+    <button class="btn" type="submit">Search</button>
+    <a href="{{ url_for('books.create_book') }}" class="btn">Add Book</a>
 </form>
+
 <table class="table">
-	<thead>
-		<tr>
-			<th>ISBN</th>
-			<th>Title</th>
-			<th>Category</th>
-			<th>Total</th>
-			<th>Available</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-	{% for b in books %}
-		<tr>
-			<td>{{ b.isbn }}</td>
-			<td>{{ b.title }}</td>
-			<td>{{ b.category.name if b.category else '-' }}</td>
-			<td>{{ b.total_copies }}</td>
-			<td>{{ b.available_copies }}</td>
-			<td>
-				<a href="{{ url_for('books.edit_book', book_id=b.id) }}">Edit</a>
-				<form method="post" action="{{ url_for('books.delete_book', book_id=b.id) }}" style="display:inline">
-					<button class="link" onclick="return confirm('Delete?')">Delete</button>
-				</form>
-			</td>
-		</tr>
-	{% endfor %}
-	</tbody>
+    <thead>
+        <tr>
+            <th>ISBN</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Total</th>
+            <th>Available</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for b in books %}
+        <tr>
+            <td>{{ b.isbn }}</td>
+            <td>{{ b.title }}</td>
+            <td>{{ b.category.name if b.category else '-' }}</td>
+            <td>{{ b.total_copies }}</td>
+            <td>{{ b.available_copies }}</td>
+            <td>
+                <a href="{{ url_for('books.edit_book', book_id=b.id) }}">Edit</a>
+                <form method="post" action="{{ url_for('books.delete_book', book_id=b.id) }}" style="display:inline">
+                    <button class="link" onclick="return confirm('Delete?')">Delete</button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
 </table>
 {% endblock %}
