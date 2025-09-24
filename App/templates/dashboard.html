@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1>Dashboard</h1>
+<div class="grid">
+	<div class="card"><h3>Total books</h3><div class="metric">{{ stats.total_books }}</div></div>
+	<div class="card"><h3>Total copies</h3><div class="metric">{{ stats.total_copies }}</div></div>
+	<div class="card"><h3>Available copies</h3><div class="metric">{{ stats.available_copies }}</div></div>
+	<div class="card"><h3>Issued copies</h3><div class="metric">{{ stats.issued_copies }}</div></div>
+	<div class="card"><h3>Overdue copies</h3><div class="metric">{{ stats.overdue_copies }}</div></div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1>Books</h1>
+<form method="get" class="toolbar">
+	<input type="text" name="q" placeholder="Search title or ISBN" value="{{ q }}" class="input">
+	<button class="btn" type="submit">Search</button>
+	<a href="{{ url_for('books.create_book') }}" class="btn">Add Book</a>
+</form>
+<table class="table">
+	<thead>
+		<tr>
+			<th>ISBN</th>
+			<th>Title</th>
+			<th>Category</th>
+			<th>Total</th>
+			<th>Available</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for b in books %}
+		<tr>
+			<td>{{ b.isbn }}</td>
+			<td>{{ b.title }}</td>
+			<td>{{ b.category.name if b.category else '-' }}</td>
+			<td>{{ b.total_copies }}</td>
+			<td>{{ b.available_copies }}</td>
+			<td>
+				<a href="{{ url_for('books.edit_book', book_id=b.id) }}">Edit</a>
+				<form method="post" action="{{ url_for('books.delete_book', book_id=b.id) }}" style="display:inline">
+					<button class="link" onclick="return confirm('Delete?')">Delete</button>
+				</form>
+			</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+{% endblock %}

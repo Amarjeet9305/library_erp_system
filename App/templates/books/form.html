@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1>Book</h1>
+<form method="post">
+	{{ form.hidden_tag() }}
+	<div>
+		<label>ISBN</label>
+		{{ form.isbn(class_='input') }}
+	</div>
+	<div>
+		<label>Title</label>
+		{{ form.title(class_='input') }}
+	</div>
+	<div>
+		<label>Category</label>
+		{{ form.category(class_='input') }}
+	</div>
+	<div>
+		<label>Authors</label>
+		{{ form.authors(class_='input') }}
+	</div>
+	<div>
+		<label>Total Copies</label>
+		{{ form.total_copies(class_='input') }}
+	</div>
+	<div>
+		{{ form.submit(class_='btn') }}
+	</div>
+</form>
+{% endblock %}

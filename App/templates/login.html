@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1>Login</h1>
+<form method="post">
+	{{ form.hidden_tag() }}
+	<div>
+		<label>Email or ID</label>
+		{{ form.identifier(class_='input') }}
+		{% for e in form.identifier.errors %}<div class="flashes danger">{{ e }}</div>{% endfor %}
+	</div>
+	<div>
+		<label>Password</label>
+		{{ form.password(class_='input') }}
+		{% for e in form.password.errors %}<div class="flashes danger">{{ e }}</div>{% endfor %}
+	</div>
+	<div>
+		<label>{{ form.remember() }} Remember me</label>
+	</div>
+	<div>
+		{{ form.submit(class_='btn') }}
+	</div>
+</form>
+<p>
+	Don't have an account? <a href="{{ url_for('auth.register') }}">Register as student</a>.
+</p>
+<p>
+	If you don't have an admin yet, seed one using the command provided earlier.
+</p>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1>Return Book</h1>
+<form method="post">
+	{{ form.hidden_tag() }}
+	<div>
+		<label>Transaction ID</label>
+		{{ form.transaction_id(class_='input') }}
+	</div>
+	<div>
+		<label>Return Date</label>
+		{{ form.return_date(class_='input') }}
+	</div>
+	<div>
+		{{ form.submit(class_='btn') }}
+	</div>
+</form>
+{% endblock %}

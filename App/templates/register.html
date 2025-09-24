@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1>Register as Student</h1>
+<form method="post">
+	{{ form.hidden_tag() }}
+	<div>
+		<label>Full name</label>
+		{{ form.full_name(class_='input') }}
+		{% for e in form.full_name.errors %}<div class="flashes danger">{{ e }}</div>{% endfor %}
+	</div>
+	<div>
+		<label>Email</label>
+		{{ form.email(class_='input') }}
+		{% for e in form.email.errors %}<div class="flashes danger">{{ e }}</div>{% endfor %}
+	</div>
+	<div>
+		<label>Password</label>
+		{{ form.password(class_='input') }}
+		{% for e in form.password.errors %}<div class="flashes danger">{{ e }}</div>{% endfor %}
+	</div>
+	<div>
+		{{ form.submit(class_='btn') }}
+	</div>
+</form>
+{% endblock %}
+
+

@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h1>Issue Book</h1>
+<form method="post">
+	{{ form.hidden_tag() }}
+	<div>
+		<label>User ID</label>
+		{{ form.user_id(class_='input') }}
+	</div>
+	<div>
+		<label>Book ID</label>
+		{{ form.book_id(class_='input') }}
+	</div>
+	<div>
+		<label>Copy ID</label>
+		{{ form.copy_id(class_='input') }}
+	</div>
+	<div>
+		<label>Issue Date</label>
+		{{ form.issue_date(class_='input') }}
+	</div>
+	<div>
+		<label>Due Date</label>
+		{{ form.due_date(class_='input') }}
+	</div>
+	<div>
+		{{ form.submit(class_='btn') }}
+	</div>
+</form>
+{% endblock %}
